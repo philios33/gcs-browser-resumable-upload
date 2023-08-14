@@ -34,4 +34,16 @@ Note: Make sure you initiate the resumable upload with the correct Origin header
 
 Bundle this package in to your frontend bundle, or use it as a script module.
 
-Generating the Session URI for the resumable upload requires that you are authenticated and have relevant access to the Google Cloud Storage API.  This is normally done server side using a service account, and you can use Googles node client libraries for this.  Transmission of the session URI should only be over a secure connection.
+### Generating a session URI
+Generating the Session URI for the resumable upload requires that you are authenticated and have relevant access to the Google Cloud Storage API.  This is normally done server side using a service account, and you can use Googles node client libraries for this.  Transmission of the session URI should only be over a secure connection and to trusted parties.
+
+    import {Storage} from '@google-cloud/storage';
+
+    const storage = new Storage();
+    const bucket = storage.bucket(bucketId);
+    const file = bucket.file(path);
+    const response = await file.createResumableUpload({
+        origin: myOrigin
+    });
+    console.log(response);
+    // ['https://storage.googleapis.com/upload/storage/xxxxx']

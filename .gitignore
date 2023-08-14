@@ -1,3 +1,6 @@
-dist-cjs/
-dist-esm/
+dist/
+dist-es5/
+dist-es6/
 node_modules/
+test/
+service_account.json

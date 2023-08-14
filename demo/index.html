@@ -9,9 +9,9 @@
         <p><button id="uploadButton">Upload</button></p>
         <p><button id="cancelButton">Cancel</button></p>
 
-        <script type="module">
-            import { GCSResumableUpload } from '/dist-esm/index.js';
-
+        <script src="/dist/main.js"></script>
+        <script>
+            
             var uploadButton = document.getElementById("uploadButton");
             var cancelButton = document.getElementById("cancelButton");
             var fileInput = document.getElementById("fileInput");
@@ -21,8 +21,8 @@
 
             uploadButton.addEventListener("click", function() {
                 if (uploader === null) {
-                    
-                    uploader = new GCSResumableUpload(sessionInput.value, fileInput.files[0]);
+                    console.log("Starting resumable upload instance...");
+                    uploader = new GCSRU.GCSResumableUpload(sessionInput.value, fileInput.files[0]);
                     uploader.onProgress(function(percent) {
                         console.log("Progress", percent);
                     });
