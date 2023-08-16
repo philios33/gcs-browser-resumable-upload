@@ -571,6 +571,11 @@ export class GCSResumableUpload {
     }
 
     private fireNewState(newState: State) {
+        const finalState = ["CANCELLED", "FAILED", "SUCCESSFUL"];
+        if (finalState.indexOf(this.currentState) !== -1) {
+            return; // Already in final state, this prevents backoff state after cancelled
+        }
+
         if (this.currentState !== newState) {
             this.currentState = newState;
             for (const handler of this.onStateChangeHandlers) {
